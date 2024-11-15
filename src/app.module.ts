@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { ArticleModule } from './article/article.module';
 import { TypesModule } from './types/types.module';
+import { LocalStrategy } from './types/local.strategy';
 
 const entitiesPath = __dirname + '/**/*.entity{.ts,.js}';
 
@@ -28,8 +29,11 @@ const entitiesPath = __dirname + '/**/*.entity{.ts,.js}';
     UserModule,
     ArticleModule,
     TypesModule,
+    ConfigModule.forRoot({
+      isGlobal: true, // Make it global to be available everywhere
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, LocalStrategy],
 })
 export class AppModule {}
